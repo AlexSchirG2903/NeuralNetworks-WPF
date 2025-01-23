@@ -11,10 +11,14 @@ namespace NeuralNetworks_Lab1
 
         public double[] matrixMult(double[,] gewichtung, int anzahl_neuronen, double[] Eingabewerte)
         {
-            double[] Eingangsergebnis = new double[anzahl_neuronen];
-            for (int i = 0; i < anzahl_neuronen; i++)
+            double[] Eingangsergebnis = new double[gewichtung.GetLength(0)];
+            if (gewichtung.GetLength(1) != Eingabewerte.Length)
+                throw new ArgumentException("Matrix columns must match vector length.");
+
+
+            for (int i = 0; i < gewichtung.GetLength(0); i++)             // Anzahl der reihen 
             {
-                for (int j = 0; j < gewichtung.GetLength(1); j++)
+                for (int j = 0; j < Eingabewerte.Length; j++) // Anzahl der spalten 
                 {
                     Eingangsergebnis[i] += Eingabewerte[j] * gewichtung[i, j];
 
@@ -55,19 +59,20 @@ namespace NeuralNetworks_Lab1
 
             for (int i = 0; i < targets.Length; i++)
             {
-                test[i] = targets[i] - outputs[i];
+                /* test[i] = targets[i] - outputs[i];
 
-                if (test[i] < 0)
-                {
-                    a = -1;
-                }
-                else
-                {
-                    a = 1;
+                 if (test[i] < 0)
+                 {
+                     a = -1;
+                 }
+                 else
+                 {
+                     a = 1;
 
-                }
+                 }
 
-                errors[i] = a * Math.Pow(targets[i] - outputs[i], 2);
+                 errors[i] = a * Math.Pow(targets[i] - outputs[i], 2);*/
+                errors[i] = targets[i] - outputs[i]; 
             }
             return errors;
 
@@ -80,31 +85,28 @@ namespace NeuralNetworks_Lab1
             int cols = weights.GetLength(1); // Anzahl der Neuronen in der Output-Schicht
             double nenner = 0;             
 
-            if (cols != errorOutput.Length)
-            {
-                throw new ArgumentException("Die Anzahl der Spalten der Gewichtsmatrix muss der Länge des Fehlervektors entsprechen.");
-            }
+            
 
-            double[] errorHidden = new double[rows];
+            double[] errorHidden = new double[cols];
 
-            for (int i = 0; i < rows; i++)
+            for (int i = 0; i < cols; i++)
             {
                 errorHidden[i] = 0.0;
-                for (int j = 0; j < cols; j++)
+                for (int j = 0; j < errorOutput.Length; j++)
 
 
                 {
 
-                    for (int k = 0; k < rows; k++)
+                   /* for (int k = 0; k < rows; k++)
                     {
                         
                         nenner += weights[k, j];
 
 
-                    }
+                    }*/
 
 
-                    errorHidden[i] += weights[i, j]  * errorOutput[j];
+                    errorHidden[i] += weights[j, i]  * errorOutput[j];
 
                   
                 }

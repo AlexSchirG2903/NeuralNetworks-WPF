@@ -176,19 +176,19 @@ namespace NeuralNetworks_Lab1
             using (TextWriter sw = new StreamWriter(weightFile + ".txt")) //Ein TextWriter wird erstellt, um in eine Datei zu schreiben. Der Dateiname ist weightFile + ".txt", wobei weightFile vorher zusammengesetzt wurde, z. B. weight-1000-10-200.
             {
                 // Console.WriteLine(nn3SO.WIH.GetLength(0).ToString(), nn3SO.WIH.GetLength(1).ToString());
-                for (j = 0; j < nn3SO.WIH.GetLength(1); j++)
+                for (j = 0; j < nn3SO.WIH.GetLength(0); j++)
                 {
-                    for (i = 0; i < nn3SO.WIH.GetLength(0); i++)
+                    for (i = 0; i < nn3SO.WIH.GetLength(1); i++)
                     {
-                        sw.WriteLine(nn3SO.WIH[i, j].ToString());  // Schreibt die Gewicht zwischen  Input und Hidden Layer 
+                        sw.WriteLine(nn3SO.WIH[j, i].ToString());  // Schreibt die Gewicht zwischen  Input und Hidden Layer 
                         //  Console.WriteLine(nn3SO.WIH[i, j].ToString());
                     }
                     // sw.WriteLine();
                 }
-                for (j = 0; j < nn3SO.WHO.GetLength(1); j++)
+                for (j = 0; j < nn3SO.WHO.GetLength(0); j++)
                 {
-                    for (i = 0; i < nn3SO.WHO.GetLength(0); i++)
-                        sw.WriteLine(nn3SO.WHO[i, j].ToString());  // Schreibt die Gewichte zwischen Hiden und Output layer in die datei 
+                    for (i = 0; i < nn3SO.WHO.GetLength(1); i++)
+                        sw.WriteLine(nn3SO.WHO[j, i].ToString());  // Schreibt die Gewichte zwischen Hiden und Output layer in die datei 
                     // sw.WriteLine();
                 }
             }
@@ -224,13 +224,13 @@ namespace NeuralNetworks_Lab1
                 {
                     if (j < hnodes)
                     {
-                       // nn3SO.setWIHMatrix(i, j, Convert.ToDouble(line)); // Setzt die Gewichte aus der Tabelle 
+                        nn3SO.setWIHMatrix(i, j, Convert.ToDouble(line)); // Setzt die Gewichte aus der Tabelle 
                         i++; counter++;
                         if (i >= inodes) { j++; i = 0; }
                     }
                     else
                     {
-                    //    nn3SO.setWHOMatrix(k, l, Convert.ToDouble(line));
+                       nn3SO.setWHOMatrix(k, l, Convert.ToDouble(line));
                         k++;
                         if (k >= hnodes) { l++; k = 0; }
                     }

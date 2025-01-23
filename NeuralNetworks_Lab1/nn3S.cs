@@ -65,8 +65,8 @@ namespace NeuralNetworks_Lab1
         // Initialisierung der Gewichtsmatrizen
         private void createWeightMatrizes()
         {
-            wih = new double[inodes, hnodes];
-            who = new double[hnodes, onodes];
+            wih = new double[hnodes, inodes];
+            who = new double[onodes, hnodes];
 
             // Eine einzige Instanz von Random erzeugen
             Random random = new Random();
@@ -76,7 +76,7 @@ namespace NeuralNetworks_Lab1
             {
                 for (int i = 0; i < inodes; i++)
                 {
-                    wih[i, j] = random.NextDouble() * 2.0 - 1.0; // Werte im Bereich [-1.0, 1.0]
+                    wih[j, i] = random.NextDouble() * 2.0 - 1.0; // Werte im Bereich [-1.0, 1.0]
                 }
             }
 
@@ -85,7 +85,7 @@ namespace NeuralNetworks_Lab1
             {
                 for (int i = 0; i < hnodes; i++)
                 {
-                    who[i, j] = random.NextDouble() * 2.0 - 1.0; // Werte im Bereich [-1.0, 1.0]
+                    who[j, i] = random.NextDouble() * 2.0 - 1.0; // Werte im Bereich [-1.0, 1.0]
                 }
             }
         }
@@ -141,7 +141,7 @@ namespace NeuralNetworks_Lab1
             {
                 for (int j = 0; j < onodes; j++)
                 {
-                    who[i, j] += learningRate * outputGradients[j] * hidden_outputs[i];
+                    who[j, i] += learningRate * outputGradients[j] * hidden_outputs[i];
                 }
             }
 
@@ -150,9 +150,30 @@ namespace NeuralNetworks_Lab1
             {
                 for (int j = 0; j < hnodes; j++)
                 {
-                    wih[i, j] += learningRate * hiddenGradients[j] * inputs[i];
+                    wih[j, i] += learningRate * hiddenGradients[j] * inputs[i];
                 }
             }
+        }
+        public void setWIHMatrix(int i, int j, double value)
+        {
+            if (j < 0 || j >= wih.GetLength(0))
+                throw new ArgumentOutOfRangeException(nameof(i), "Index i liegt außerhalb des gültigen Bereichs.");
+
+            if (i < 0 || i >= wih.GetLength(1))
+                throw new ArgumentOutOfRangeException(nameof(j), "Index j liegt außerhalb des gültigen Bereichs.");
+
+            wih[j, i] = value;
+        }
+
+        public void setWHOMatrix(int i, int j, double value)
+        {
+            if (j < 0 || j >= who.GetLength(0))
+                throw new ArgumentOutOfRangeException(nameof(j), "Index i liegt außerhalb des gültigen Bereichs.");
+
+            if (i < 0 || i >= who.GetLength(1))
+                throw new ArgumentOutOfRangeException(nameof(i), "Index j liegt außerhalb des gültigen Bereichs.");
+
+            who[j, i] = value;
         }
     }
 }

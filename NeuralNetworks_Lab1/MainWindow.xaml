@@ -9,29 +9,32 @@
     <Grid>
         <!-- Buttons -->
         <Button x:Name="queryButton" Content="QueryNetwork" HorizontalAlignment="Left"
-                Margin="930,300,0,0" VerticalAlignment="Top" Width="85" Click="queryButton_Click"/>
+                Margin="861,303,0,0" VerticalAlignment="Top" Width="110" Click="queryButton_Click" Height="22"/>
         <Button x:Name="trainButton" Content="TrainNetwork" HorizontalAlignment="Left"
-                Margin="930,140,0,0" VerticalAlignment="Top" Width="75" Click="trainButton_Click"/>
+                Margin="825,225,0,0" VerticalAlignment="Top" Width="86" Click="trainButton_Click"/>
         <Button x:Name="createButton" Content="CreateNetwork"
-                HorizontalAlignment="Left" Margin="830,250,0,0" VerticalAlignment="Top" Width="85"
+                HorizontalAlignment="Left" Margin="825,185,0,0" VerticalAlignment="Top" Width="85"
                 Click="createButton_Click"/>
         <Button x:Name="openTrainButton" Content="OpenTrainingFile"
-                HorizontalAlignment="Left" Margin="930,40,0,0" VerticalAlignment="Top" Width="95"
+                HorizontalAlignment="Left" Margin="930,185,0,0" VerticalAlignment="Top" Width="95"
                 Click="openTrainButton_Click"/>
         <Button x:Name="loadWeightButton" Content="LoadWeightMatrices"
-                HorizontalAlignment="Left" Margin="920,190,0,0" VerticalAlignment="Top" Width="115"
+                HorizontalAlignment="Left" Margin="861,263,0,0" VerticalAlignment="Top" Width="115"
                 Click="loadWeightButton_Click"/>
         <Button x:Name="openTestButton" Content="OpenTestFile"
-                HorizontalAlignment="Left" Margin="930,250,0,0" VerticalAlignment="Top" Width="85"
+                HorizontalAlignment="Left" Margin="930,225,0,0" VerticalAlignment="Top" Width="95"
                 Click="openTestButton_Click"/>
 
         <!-- Textboxes -->
         <TextBox x:Name="outputTextBox" HorizontalAlignment="Left" Height="23"
-                 Margin="830,190,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="75"
+                 Margin="930,90,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="75"
                  PreviewTextInput="outputTextBox_PreviewTextInput"/>
         <TextBox x:Name="hiddenTextBox" HorizontalAlignment="Left" Height="23"
-                 Margin="830,140,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="75"
+                 Margin="830,140,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="71"
                  PreviewTextInput="hiddenTextBox_PreviewTextInput"/>
+        <TextBox x:Name="howmany_hiddenTextBox" HorizontalAlignment="Left" Height="23"
+                 Margin="934,140,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="30"
+                 />
         <TextBox x:Name="inputTextBox" HorizontalAlignment="Left" Height="23"
                  Margin="830,90,0,0" TextWrapping="Wrap" Text="784" VerticalAlignment="Top" Width="75"
                  PreviewTextInput="inputTextBox_PreviewTextInput"/>
@@ -39,10 +42,10 @@
                  Margin="830,40,0,0" TextWrapping="Wrap" Text="0.3" VerticalAlignment="Top" Width="75"
                  PreviewTextInput="learningRateTextBox_PreviewTextInput" TextChanged="learningRateTextBox_TextChanged"/>
         <TextBox x:Name="epochenBox" HorizontalAlignment="Left" Height="23"
-                 Margin="930,90,0,0" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Width="75"
+                 Margin="930,42,0,0" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Width="75"
                  PreviewTextInput="epochenBox_PreviewTextInput"/>
         <TextBox x:Name="performanceBox" HorizontalAlignment="Left" Height="23"
-                 Margin="930,350,0,0" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Width="75"
+                 Margin="889,356,0,0" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Width="75"
                  PreviewTextInput="performanceBox_PreviewTextInput"/>
         <TextBox x:Name="recognizedBox" HorizontalAlignment="Left" Height="23"
                  Margin="930,540,0,0" TextWrapping="Wrap" Text="?" VerticalAlignment="Top" Width="75"/>
@@ -72,19 +75,20 @@
                VerticalAlignment="Top"/>
         <Label Content="Hidden Nodes" HorizontalAlignment="Left" Margin="825,120,0,0"
                VerticalAlignment="Top"/>
-        <Label Content="Output Nodes" HorizontalAlignment="Left" Margin="825,170,0,0"
+        <Label Content="How manyHidden Nodes" HorizontalAlignment="Left" Margin="926,120,0,0"
+               VerticalAlignment="Top" Height="28" FontSize="8"/>
+        <Label Content="Output Nodes" HorizontalAlignment="Left" Margin="929,65,0,0"
                VerticalAlignment="Top"/>
-        <Label Content="Epochen" HorizontalAlignment="Left" Margin="930,70,0,0"
+        <Label Content="Epochen" HorizontalAlignment="Left" Margin="930,22,0,0"
                VerticalAlignment="Top"/>
         <Label Content="Recognized" HorizontalAlignment="Left" Margin="850,535,0,0"
                VerticalAlignment="Top"/>
         <Label Content="NetworkPerformance" HorizontalAlignment="Left"
-               Margin="910,330,0,0" VerticalAlignment="Top"/>
+               Margin="861,330,0,0" VerticalAlignment="Top"/>
 
         <!-- Image -->
         <Image x:Name="numberImage" RenderOptions.BitmapScalingMode="NearestNeighbor"
-               RenderOptions.EdgeMode="Aliased" MinWidth="100" MinHeight="100" Width="100"
-               Height="100" Margin="886,401,60,73"></Image>
+               RenderOptions.EdgeMode="Aliased" MinWidth="100" MinHeight="100" Margin="861,393,37,68"/>
         <CheckBox x:Name="checkBoxImage" Content="ShowImages"
                   HorizontalAlignment="Left" Margin="889,517,0,0" VerticalAlignment="Top"/>
     </Grid>
