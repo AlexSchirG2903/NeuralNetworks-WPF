@@ -29,7 +29,8 @@ namespace NeuralNetworks_Lab1
         // VAriablen 
 
         int inodes = 784; //784 Neuronen im Input Layer, weil wir 28 * 28 Pixel haben also für jeden Pixel ein Neuron 
-        int hnodes = 200; //Anzahl der Neuronen im Hidden-Layer. Hier wurden 200 gewählt, was typisch für ein neuronales Netz ist, da es oft als ausreichend leistungsfähig für die Verarbeitung von Eingabedaten gilt.
+        int hnodes = 50; //Anzahl der Neuronen im Hidden-Layer. Hier wurden 200 gewählt, was typisch für ein neuronales Netz ist, da es oft als ausreichend leistungsfähig für die Verarbeitung von Eingabedaten gilt.
+        int hnodes_count = 2; // Wie viele Hidden Layers das neuronale Netz hat 
         int onodes = 10;//Anzahl der Neuronen im Output-Layer. Der Wert 10 entspricht der Anzahl der Klassen (z. B. Ziffern von 0 bis 9), die das Netzwerk vorhersagen kann.
         int trainCount = 0; // trainCount dient als Zähler, um die Gesamtanzahl der Trainingsdurchläufe (Iterationen) zu verfolgen. Jedes Mal, wenn ein Trainingsbeispiel verarbeitet wird, wird dieser Zähler um 1 erhöht.
         int epoches = 1; //Diese Variable gibt an, wie oft das gesamte Trainingsset durchlaufen werden soll. Eine Epoche bedeutet, dass das neuronale Netz jeden Datensatz im Trainingsset genau einmal verarbeitet hat. Wenn epoches auf 5 gesetzt wird, durchläuft das Netz den gesamten Trainingsdatensatz fünfmal.
@@ -123,8 +124,16 @@ namespace NeuralNetworks_Lab1
 
         private void createButton_Click(object sender, RoutedEventArgs e)
         { // Methode dazu da um zu guckken , dass die 3 Layers : "input" , "hidden", "output" nicht aus 0 Neuronen bestehen 
+
             if ((inodes != 0) && (hnodes != 0) && (onodes != 0))
-                nn3SO = new nn3S(inodes, hnodes, onodes, learningRate); // Eine Instanz der Klasse nn3S wird erstellt mit dem Konstruktor der die 3 int als eingabewert erwartet 
+            {
+                if (hnodes_count == 1)
+                {
+                    nn3SO = new nn3S(inodes, hnodes, onodes, learningRate); // Eine Instanz der Klasse nn3S wird erstellt mit dem Konstruktor der die 3 int als eingabewert erwartet 
+                }else
+                    nn3SO = new nn3S(inodes, hnodes, onodes, learningRate,hnodes_count);
+
+            }
 
             createButton_zu_queryButton = true; // Damit ich erstmal create Button und dann querry Button machen kann , ohne einen Exeptioin zu bekommen 
         }
@@ -161,7 +170,15 @@ namespace NeuralNetworks_Lab1
                         for (i = 0; i < onodes; i++) // läuft alle Output Neuronen (0-9) durch 
                             targets[i] = 0.01;  // setzt erstmal alle werte auf 1 % also das es nicht den Wert entspricht  den wir suchen 
                         targets[intTarget] = 0.99; // setzt unseren target Neuron an der stelle auf 99%
-                        nn3SO.train(inputs, targets, learningRate); // Übergeben die inputs , die Targets und meine learningrate an die Methode der Trainings instanz 
+                        if (hnodes_count == 1)
+                        {
+                            nn3SO.train(inputs, targets, learningRate);// Übergeben die inputs , die Targets und meine learningrate an die Methode der Trainings instanz 
+                        }
+                        else
+                        {
+                            nn3SO.train_moreLayer(inputs, targets, learningRate);
+                        }
+                       
                         trainCount++;                               // Erhöt nach jedem ablauf wie oft trainiert wird 
                         displayResults();                           // Zeig die Werte im data.Grid 
                         if (checkBoxImage.IsChecked == true)
@@ -275,7 +292,16 @@ namespace NeuralNetworks_Lab1
                         for (i = 0; i < onodes; i++)   // Die schleife geht bis 10 also (0-9) Zahlen 
                             targets[i] = 0.01;
                         targets[intTarget] = 0.99;  // Setzt unser target nur auf 99 % 
-                        nn3SO.queryNN(inputs);      // Ruft die Vorhersagen des neuronalen Netzes für die aktuellen Eingaben (inputs) ab
+                       
+                        if (hnodes_count == 1)
+                        {
+                            nn3SO.queryNN(inputs);
+                        }
+                        else
+                        {
+                            nn3SO.queryNN_moreLayer(inputs);
+                        }
+                        // Ruft die Vorhersagen des neuronalen Netzes für die aktuellen Eingaben (inputs) ab
                         for (i = 0; i < nn3SO.Final_outputs.Length; i++) // Gibt die anzahl der final outputs 
                         {
                             if (nn3SO.Final_outputs[i] > answer) // Guckt ob Final Outputs (output nach sigmoid funktioin größer ist als answer )
